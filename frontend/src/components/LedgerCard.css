@@ -1,0 +1,79 @@
+.ledger-card {
+  position: relative;
+  background-color: var(--color-paper-100);
+  border: 1px solid var(--color-paper-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  overflow: hidden;
+}
+
+.ledger-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Signature Element: Top Brass Rule */
+.ledger-card__brass-rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--color-brass-500);
+}
+
+.ledger-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.ledger-card__label {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.ledger-card__amount-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+}
+
+.ledger-card--align-right .ledger-card__amount-row {
+  justify-content: flex-end;
+}
+
+.ledger-card__currency {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.ledger-card__amount {
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.ledger-card__subtitle {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-2);
+}
+
+.ledger-card__action {
+  margin-top: var(--space-4);
+}

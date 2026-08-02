@@ -1,0 +1,41 @@
+# NextGen Digital Banking Platform — Git Ignore Specification
+
+# Java & Maven
+backend/target/
+*.class
+*.jar
+*.war
+.mvn/
+.gradle/
+
+# Python & AI Loan Service
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+
+# Node.js & React Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System & IDE files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.tmp
+_pdf_extracted.txt
+
+# Environment variables
+.env
+.env.local

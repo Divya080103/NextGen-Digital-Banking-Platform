@@ -1,0 +1,101 @@
+/* NextGen Digital Banking Platform — Refreshed Design System CSS */
+
+:root {
+  /* Nav / dark surface */
+  --color-pine-950: #0F241C;
+  --color-pine-800: #1B3A2C;
+
+  /* Content canvas — warm, not stark white */
+  --color-cream-50: #F6F2E8;
+  --color-cream-100: #EEE7D6;
+  --color-cream-200: #E2D8BF;
+
+  /* Text */
+  --color-ink-900: #14171C;
+  --color-text-secondary: #5C6259;
+  --color-text-inverse: #F3EFE4;
+  --color-text-muted-inverse: #9CA89D;
+
+  /* Primary accent */
+  --color-gold-500: #C9974B;
+  --color-gold-600: #A8792F;
+  --color-gold-100: #F1E4C9;
+
+  /* Data-viz / secondary accents — used for charts and insights, not primary CTAs */
+  --color-cobalt-500: #3B6FE0;
+  --color-rose-500: #E85C8A;
+  --color-emerald-500: #2E9E6D;
+
+  /* Semantic status — keep consistent meaning across every module */
+  --color-success-600: #2E9E6D;
+  --color-success-100: #DCEFE4;
+  --color-warning-600: #B9861F;
+  --color-warning-100: #F3E7C9;
+  --color-danger-600:  #B4453A;
+  --color-danger-100:  #F3DEDB;
+  --color-info-600:    #3B6FE0;
+  --color-info-100:    #DEE6F7;
+
+  /* Glass surfaces — used sparingly, only for the floating AI bar and one hero moment */
+  --glass-fill: rgba(255, 255, 255, 0.65);
+  --glass-fill-solid: #F9F7F1;
+  --glass-blur: 16px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-card: 0 2px 4px rgba(20, 23, 28, 0.04), 0 8px 24px rgba(20, 23, 28, 0.06);
+  --shadow-card-hover: 0 4px 8px rgba(20, 23, 28, 0.08), 0 12px 32px rgba(20, 23, 28, 0.12);
+  --shadow-glass: 0 12px 32px rgba(15, 36, 28, 0.12), 0 2px 6px rgba(15, 36, 28, 0.08);
+
+  /* Typography */
+  --font-display: 'General Sans', 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
+}
+
+/* Reset & Base Canvas */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream-50);
+  color: var(--color-ink-900);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessibility Focus Ring */
+:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Fallbacks */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
