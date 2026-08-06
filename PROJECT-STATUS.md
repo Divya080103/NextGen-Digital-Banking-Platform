@@ -1,5 +1,5 @@
 # Project Status
-Last updated: 2026-08-04 by Antigravity AI
+Last updated: 2026-08-06 by Antigravity AI
 
 ## Current Phase
 Phase 0: Scaffolding & Design System Refresh Completed
@@ -14,6 +14,7 @@ Phase 0: Scaffolding & Design System Refresh Completed
 | `TEAM-MESSAGE.md` | Verified | Team kickoff brief & module assignments |
 | `VERIFY-PROMPT.md` | Verified | AI module verification master prompt |
 | `AI-SESSION-STARTER.md` | Verified | AI IDE session starter prompt for developer onboarding |
+| `WORKFLOW-GUIDE.html` | Verified | Interactive 4-step light-mode HTML workflow guide featuring Antigravity <-> ChatGPT iteration loop, 1-click prompt copiers, and human-in-the-loop developer rules |
 | `PROJECT-STATUS.md` & `AGENTS.md` | Verified | Status tracking & AI agent instruction system created |
 | frontend shared components | Verified | Refreshed dark-nav / warm-canvas design system, `HorizonCard`, `AskAIBar`, `StatusBadge`, `Button`, `DataTable`, `FormField`. Passed production build (`npm run build`) |
 | `auth` module | Not started | Assigned: Teammate 1 |

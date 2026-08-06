@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer AI Workflow Guide — NextGen Digital Banking Platform</title>
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --bg-input: #ffffff;
+      
+      --border-color: #e2e8f0;
+      --border-hover: #cbd5e1;
+      
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --text-muted: #64748b;
+      
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      
+      --emerald: #059669;
+      --emerald-light: #ecfdf5;
+      --amber: #d97706;
+      --amber-light: #fffbe completed;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+      
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 2.5rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 860px;
+      width: 100%;
+    }
+
+    /* Header */
+    header {
+      margin-bottom: 2rem;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: var(--text-sub);
+      font-size: 1rem;
+    }
+
+    /* Notice Warning Box */
+    .notice-card {
+      background: #fffbeb;
+      border: 1px solid #fef3c7;
+      border-left: 4px solid var(--amber);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .notice-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .notice-content h4 {
+      font-size: 0.925rem;
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 0.25rem;
+    }
+
+    .notice-content p {
+      font-size: 0.875rem;
+      color: #78350f;
+      line-height: 1.5;
+    }
+
+    .notice-content strong {
+      color: #78350f;
+    }
+
+    /* Step Navigation Tabs */
+    .step-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      background: #e2e8f0;
+      padding: 0.25rem;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .step-tabs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.65rem 0.5rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .tab-btn.active {
+      background: var(--bg-card);
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+      font-weight: 700;
+    }
+
+    .tab-btn.completed {
+      color: var(--emerald);
+    }
+
+    /* Main Step Card */
+    .step-card {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+    }
+
+    .step-card.active {
+      display: block;
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .step-title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .step-badge {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 800;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .step-intro {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      margin-bottom: 1.25rem;
+    }
+
+    /* Bullet Instructions */
+    .instruction-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .instruction-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+    }
+
+    .bullet-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Prompt Container */
+    .prompt-container {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .prompt-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .prompt-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .btn-copy {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-copy:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    pre, textarea {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #1e293b;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    textarea {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.75rem;
+      color: var(--text-main);
+      resize: vertical;
+      min-height: 90px;
+      margin-bottom: 1rem;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    /* Footer Buttons */
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .btn {
+      padding: 0.55rem 1.15rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border: 1px solid var(--primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.65rem 1.1rem;
+      border-radius: 6px;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(60px);
+      opacity: 0;
+      transition: all 0.25s ease;
+      z-index: 100;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- HEADER -->
+    <header>
+      <span class="badge-pill">Developer Guide</span>
+      <h1>AI Pair Programming Workflow</h1>
+      <p>A simple 4-step execution flow for collaborating between Antigravity (IDE) and ChatGPT.</p>
+    </header>
+
+    <!-- CRITICAL NOTICE: HUMAN IN THE LOOP -->
+    <div class="notice-card">
+      <div class="notice-icon">💡</div>
+      <div class="notice-content">
+        <h4>Important Developer Rule: Read Before Executing AI Outputs</h4>
+        <p>
+          Do not rely 100% blindly on ChatGPT or AI IDEs. ChatGPT can sometimes hallucinate, overcomplicate simple tasks, or loop unnecessarily. 
+          <strong>Always read the top summary and bottom explanation text of ChatGPT's response.</strong> Engage your human brain to verify that the proposed approach makes logical sense before pasting prompts back into your IDE!
+        </p>
+      </div>
+    </div>
+
+    <!-- TABS NAVIGATION -->
+    <div class="step-tabs">
+      <button class="tab-btn active" onclick="showStep(1)" id="tab1">1. IDE Start</button>
+      <button class="tab-btn" onclick="showStep(2)" id="tab2">2. ChatGPT Sync</button>
+      <button class="tab-btn" onclick="showStep(3)" id="tab3">3. Strategy Prompt</button>
+      <button class="tab-btn" onclick="showStep(4)" id="tab4">4. Iteration Loop</button>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step-card active" id="step1">
+      <div class="step-header">
+        <div class="step-title-group">
+          <div class="step-badge">1</div>
+          <div class="step-title">Initialize Session in Antigravity (IDE)</div>
+        </div>
+      </div>
+
+      <p class="step-intro">
+        Start a fresh chat in your AI IDE (Antigravity). Copy the prompt below to index the workspace documents and set your module scope.
+      </p>
+
+      <ul class="instruction-bullets">
+        <li><div class="bullet-dot"></div>Open Antigravity IDE and start a NEW chat window.</li>
+        <li><div class="bullet-dot"></div>Click <strong>Copy Prompt</strong> below, paste it into Antigravity, and hit run.</li>
+        <li><div class="bullet-dot"></div>Antigravity will ask who you are (Farooq, Nikitha, Divya, Ankit, Mithun) and freeze your module scope.</li>
+      </ul>
+
+      <div class="prompt-container">
+        <div class="prompt-top">
+          <span class="prompt-label">Master AI Starter Prompt</span>
+          <button class="btn-copy" onclick="copyText('starterPromptText')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy Prompt
+          </button>
+        </div>
+        <pre id="starterPromptText">You are an expert pair-programming assistant for the NextGen Digital Banking Platform. We are building a Spring Boot + PostgreSQL + React modular monolith (with a standalone Python AI service).
+
+Before writing any code or suggesting implementation steps, follow these setup steps:
+
+---
+
+### STEP 1: Context Indexing & Document Analysis
+
+Read and analyze the following files in the project workspace:
+1. `TEAM-MESSAGE.md` — Project Kickoff Brief & Team Assignments
+2. `PROJECT-STATUS.md` — Current phase and component status
+3. All 12 design files inside `/docs/`:
+   - `01-domain-model.md`
+   - `02-business-events.md`
+   - `03-service-boundaries.md`
+   - `04-database-erd.md`
+   - `05-sequence-diagrams.md`
+   - `06-state-machines.md`
+   - `07-business-rules.md`
+   - `08-api-contracts.md`
+   - `09-rbac-matrix.md`
+   - `10-architecture-decisions.md`
+   - `11-nfr-and-failure-handling.md`
+   - `12-testing-and-observability.md`
+4. Inspect `backend/src/main/java/com/nextgen/bank/common/` to understand existing shared Enums, Value Objects (`Money`, `Phone`, `Email`, `PAN`, `Aadhaar`, etc.), DTOs (`ApiError`), and Outbox event mechanisms.
+
+---
+
+### STEP 2: Developer Identification & Scope Freeze
+
+Ask me:
+"Which team member are you?
+1. Farooq (Auth, Customer, Loan)
+2. Nikitha (Account, Card)
+3. Divya (Transaction Core, UPI)
+4. Ankit (Beneficiaries, Notification, Audit)
+5. Mithun (Lead — Common, AI Integration, Full Wiring)"
+
+Wait for my response. Once I answer:
+- Acknowledge my assigned backend package (`com.nextgen.bank.<module>`) and frontend module folder (`frontend/src/modules/<module>`).
+- Summarize my primary responsibilities, my upstream/downstream dependencies, and the exact files in `/docs/` relevant to me.
+- Remind me of the 5 Golden Rules:
+  1. Stay strictly inside my package (`com.nextgen.bank.<module>`). Never import internal classes from another module. Use public `Service` interfaces only.
+  2. Use shared enums and VOs from `com.nextgen.bank.common`. Do not create duplicate enums or VOs.
+  3. API endpoints must match `08-api-contracts.md` exactly (path, DTO request/response keys, status codes).
+  4. Every state change must conform to `06-state-machines.md`.
+  5. Every domain event listed in `02-business-events.md` for my module MUST be published to `ApplicationEventPublisher`.
+
+Ready! Please ask me who I am to begin.</pre>
+      </div>
+
+      <div class="card-footer" style="justify-content: flex-end;">
+        <button class="btn btn-primary" onclick="showStep(2)">Next: ChatGPT Sync &rarr;</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step-card" id="step2">
+      <div class="step-header">
+        <div class="step-title-group">
+          <div class="step-badge">2</div>
+          <div class="step-title">Sync Context with ChatGPT</div>
+        </div>
+      </div>
+
+      <p class="step-intro">
+        Copy the initial output that Antigravity produced in Step 1, paste it below, and copy the generated prompt into ChatGPT.
+      </p>
+
+      <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-sub); display: block; margin-bottom: 0.35rem;">
+        Paste Antigravity's Output Response:
+      </label>
+      <textarea id="ideOutputText" placeholder="Paste the output response that Antigravity gave after you selected your role..." oninput="updateSyncPrompt()"></textarea>
+
+      <div class="prompt-container">
+        <div class="prompt-top">
+          <span class="prompt-label">Prompt for ChatGPT</span>
+          <button class="btn-copy" onclick="copyText('syncPromptText')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy Prompt
+          </button>
+        </div>
+        <pre id="syncPromptText">This was the starter prompt given to my AI IDE (Antigravity) and this is the exact output response I received:
+
+---
+[PASTED ANTIGRAVITY OUTPUT]
+(Paste Antigravity's output in the box above to populate this block)
+---
+
+Tell me how I should proceed to the next steps for building my assigned feature.</pre>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn btn-secondary" onclick="showStep(1)">&larr; Back</button>
+        <button class="btn btn-primary" onclick="showStep(3)">Next: Strategy Prompt &rarr;</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step-card" id="step3">
+      <div class="step-header">
+        <div class="step-title-group">
+          <div class="step-badge">3</div>
+          <div class="step-title">Get Strategy & Execution Prompt from ChatGPT</div>
+        </div>
+      </div>
+
+      <p class="step-intro">
+        Since ChatGPT does not have complete codebase access, instruct ChatGPT <strong>NOT</strong> to guess exact technicalities or force code details. Tell ChatGPT to generate a strategy prompt that lets Antigravity inspect the codebase directly.
+      </p>
+
+      <div class="prompt-container">
+        <div class="prompt-top">
+          <span class="prompt-label">Prompt to send to ChatGPT</span>
+          <button class="btn-copy" onclick="copyText('strategyPromptText')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy Prompt
+          </button>
+        </div>
+        <pre id="strategyPromptText">Since you do not have direct access to our codebase, please do NOT try to decide specific code implementations, endpoint details, or technicalities. 
+
+Instead, provide a clear high-level strategy and give me an IDE-executable prompt that I can paste into Antigravity (or any IDE AI agent). The prompt should instruct Antigravity to directly inspect the codebase, verify existing files, and make the specific technical decisions itself while building the feature step-by-step.</pre>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn btn-secondary" onclick="showStep(2)">&larr; Back</button>
+        <button class="btn btn-primary" onclick="showStep(4)">Next: Iteration Loop &rarr;</button>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step-card" id="step4">
+      <div class="step-header">
+        <div class="step-title-group">
+          <div class="step-badge">4</div>
+          <div class="step-title">The ChatGPT &lt;--&gt; Antigravity Iteration Loop</div>
+        </div>
+      </div>
+
+      <p class="step-intro">
+        Execute ChatGPT's generated prompt in Antigravity. Then copy Antigravity's output back to ChatGPT to verify quality. Repeat this feedback loop to push Antigravity to its best output!
+      </p>
+
+      <ul class="instruction-bullets">
+        <li><div class="bullet-dot"></div>Paste ChatGPT's generated prompt into Antigravity IDE and run it.</li>
+        <li><div class="bullet-dot"></div>Copy the output/code changes Antigravity generated.</li>
+        <li><div class="bullet-dot"></div>Paste it back into ChatGPT using the verification template below.</li>
+        <li><div class="bullet-dot"></div><strong>Read ChatGPT's top & bottom summaries</strong> to check if the logic makes sense before running the next prompt in Antigravity!</li>
+      </ul>
+
+      <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-sub); display: block; margin-bottom: 0.35rem;">
+        Paste Antigravity's Latest Execution Result:
+      </label>
+      <textarea id="loopOutputText" placeholder="Paste the latest output or changes produced by Antigravity IDE..." oninput="updateLoopPrompt()"></textarea>
+
+      <div class="prompt-container">
+        <div class="prompt-top">
+          <span class="prompt-label">Iteration Verification Prompt for ChatGPT</span>
+          <button class="btn-copy" onclick="copyText('loopPromptText')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy Prompt
+          </button>
+        </div>
+        <pre id="loopPromptText">I executed the strategy prompt in Antigravity IDE, and here is the output/result I got:
+
+---
+[PASTED ANTIGRAVITY EXECUTION RESULT]
+(Paste Antigravity's execution result in the box above to populate this block)
+---
+
+Please review this output:
+1. Did Antigravity miss any steps or rules?
+2. Are there any potential flaws or complications?
+3. Give me the next refined prompt to paste back into Antigravity to complete/fix the implementation.</pre>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn btn-secondary" onclick="showStep(3)">&larr; Back</button>
+        <button class="btn btn-primary" style="background: var(--emerald); border-color: var(--emerald);" onclick="showToast('🎉 Iteration loop complete! Update PROJECT-STATUS.md and CHANGELOG.md.')">Done Iterating</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="toast">Copied to clipboard!</div>
+
+  <script>
+    function showStep(stepNum) {
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById(`step${i}`).classList.remove('active');
+        document.getElementById(`tab${i}`).classList.remove('active');
+      }
+      document.getElementById(`step${stepNum}`).classList.add('active');
+      document.getElementById(`tab${stepNum}`).classList.add('active');
+    }
+
+    function updateSyncPrompt() {
+      const val = document.getElementById('ideOutputText').value.trim();
+      const target = document.getElementById('syncPromptText');
+      if (val.length > 0) {
+        target.textContent = `This was the starter prompt given to my AI IDE (Antigravity) and this is the exact output response I received:
+
+---
+${val}
+---
+
+Tell me how I should proceed to the next steps for building my assigned feature.`;
+      } else {
+        target.textContent = `This was the starter prompt given to my AI IDE (Antigravity) and this is the exact output response I received:
+
+---
+[PASTED ANTIGRAVITY OUTPUT]
+(Paste Antigravity's output in the box above to populate this block)
+---
+
+Tell me how I should proceed to the next steps for building my assigned feature.`;
+      }
+    }
+
+    function updateLoopPrompt() {
+      const val = document.getElementById('loopOutputText').value.trim();
+      const target = document.getElementById('loopPromptText');
+      if (val.length > 0) {
+        target.textContent = `I executed the strategy prompt in Antigravity IDE, and here is the output/result I got:
+
+---
+${val}
+---
+
+Please review this output:
+1. Did Antigravity miss any steps or rules?
+2. Are there any potential flaws or complications?
+3. Give me the next refined prompt to paste back into Antigravity to complete/fix the implementation.`;
+      } else {
+        target.textContent = `I executed the strategy prompt in Antigravity IDE, and here is the output/result I got:
+
+---
+[PASTED ANTIGRAVITY EXECUTION RESULT]
+(Paste Antigravity's execution result in the box above to populate this block)
+---
+
+Please review this output:
+1. Did Antigravity miss any steps or rules?
+2. Are there any potential flaws or complications?
+3. Give me the next refined prompt to paste back into Antigravity to complete/fix the implementation.`;
+      }
+    }
+
+    function copyText(elementId) {
+      const el = document.getElementById(elementId);
+      const text = el.textContent || el.innerText;
+      
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("Copied to clipboard!");
+      }).catch(() => {
+        const area = document.createElement("textarea");
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        document.body.removeChild(area);
+        showToast("Copied to clipboard!");
+      });
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => {
+        t.classList.remove('show');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
