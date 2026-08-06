@@ -5,6 +5,7 @@ All notable changes to the NextGen Digital Banking Platform will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+- 2026-08-06: Created `AI-SESSION-STARTER.md` — master session starter prompt for teammates to paste into their AI IDE at the start of any coding session to load full context and get guided module implementation.
 - 2026-08-05: Created `TEAM-MESSAGE.md` — final personalized team kickoff brief with module assignments (Farooq/Nikitha/Divya+Ankit/Mithun), build order, 4 integration checkpoints, per-person reading list, 5 integration rules, Definition of Done checklist, and 15 Aug deadline.
 - 2026-08-05: Created `VERIFY-PROMPT.md` — AI master verification prompt teammates paste into their IDE to check their module against all 8 design doc requirements before marking work done.
 - 2026-08-02: Executed Design System Refresh — dark-nav / warm-canvas tokens, `HorizonCard`, `AskAIBar`, updated `StatusBadge`, `Button`, `DataTable`, `FormField`, `ComponentShowcase`, and verified frontend build (`npm run build`).

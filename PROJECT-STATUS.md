@@ -11,6 +11,9 @@ Phase 0: Scaffolding & Design System Refresh Completed
 | Database schema (Flyway) | Built, NOT yet verified against live DB | `V1__initial_schema.sql` created (19 tables). Verification not verified — blocked by Docker Desktop engine initialization on local host |
 | `docker-compose.yml` | Configured | Postgres 16 container, empty schema init, Flyway owns schema |
 | `DOCKER-GUIDE.md` | Verified | Docker onboarding guide & troubleshooting documentation created |
+| `TEAM-MESSAGE.md` | Verified | Team kickoff brief & module assignments |
+| `VERIFY-PROMPT.md` | Verified | AI module verification master prompt |
+| `AI-SESSION-STARTER.md` | Verified | AI IDE session starter prompt for developer onboarding |
 | `PROJECT-STATUS.md` & `AGENTS.md` | Verified | Status tracking & AI agent instruction system created |
 | frontend shared components | Verified | Refreshed dark-nav / warm-canvas design system, `HorizonCard`, `AskAIBar`, `StatusBadge`, `Button`, `DataTable`, `FormField`. Passed production build (`npm run build`) |
 | `auth` module | Not started | Assigned: Teammate 1 |
