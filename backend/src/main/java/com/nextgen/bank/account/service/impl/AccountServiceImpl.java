@@ -152,6 +152,7 @@ public class AccountServiceImpl implements AccountService {
         }
 
         String oldStatus = account.getStatus().name();
+        account.requestClosure();
         account.close();
         Account updated = accountRepository.save(account);
 

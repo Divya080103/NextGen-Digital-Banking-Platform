@@ -160,7 +160,7 @@ public class Account {
     }
 
     public void close() {
-        if (this.status != AccountStatus.CLOSURE_REQUESTED && this.status != AccountStatus.ACTIVE) {
+        if (this.status != AccountStatus.CLOSURE_REQUESTED) {
             throw new BusinessException(
                     "Cannot close account in state: " + this.status,
                     HttpStatus.BAD_REQUEST,
