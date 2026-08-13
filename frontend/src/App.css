@@ -1,0 +1,137 @@
+.app-shell {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.app-header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.app-header__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-ink-900);
+  letter-spacing: -0.01em;
+}
+
+.app-header__subtitle {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.app-banner {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-warning-100);
+  border: 1px solid var(--color-warning-600);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-ink-900);
+}
+
+.app-banner code {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+.app-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--color-cream-200);
+  padding-bottom: var(--space-2);
+}
+
+.app-nav__tab {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.app-nav__tab:hover {
+  background: var(--color-cream-100);
+  color: var(--color-ink-900);
+}
+
+.app-nav__tab--active,
+.app-nav__tab--active:hover {
+  background: var(--color-pine-800);
+  color: var(--color-text-inverse);
+}
+
+.app-context {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.app-context__label {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding-bottom: 10px;
+}
+
+.app-context__chip {
+  appearance: none;
+  border: 1px solid var(--color-cream-200);
+  background: #fff;
+  border-radius: var(--radius-pill);
+  padding: 8px 14px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-ink-900);
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.app-context__chip--active {
+  border-color: var(--color-pine-800);
+  background: var(--color-cream-100);
+  font-weight: 600;
+}
+
+.app-context__field {
+  flex: 1 1 320px;
+  min-width: 260px;
+}
+
+.app-main {
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
