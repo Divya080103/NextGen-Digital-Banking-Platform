@@ -9,4 +9,8 @@ public class ResourceNotFoundException extends BusinessException {
               HttpStatus.NOT_FOUND,
               "RESOURCE_NOT_FOUND");
     }
+
+    public ResourceNotFoundException(String message) {
+        super(message, HttpStatus.NOT_FOUND, "RESOURCE_NOT_FOUND");
+    }
 }
