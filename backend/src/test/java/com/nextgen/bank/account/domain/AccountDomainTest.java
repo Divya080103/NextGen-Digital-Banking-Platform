@@ -159,10 +159,20 @@ class AccountDomainTest {
     }
 
     @Test
-    @DisplayName("BR-ACC-005: close() directly from ACTIVE with zero balance succeeds")
-    void close_fromActiveWithZeroBalance_succeeds() {
+    @DisplayName("ACTIVE → CLOSURE_REQUESTED → CLOSED: closure with zero balance succeeds")
+    void close_fromClosureRequestedWithZeroBalance_succeeds() {
         account.activate();
+        account.requestClosure();
         account.close();
         assertThat(account.getStatus()).isEqualTo(AccountStatus.CLOSED);
+    }
+
+    @Test
+    @DisplayName("close() directly from ACTIVE is rejected (06-state-machines.md §2)")
+    void close_fromActive_throws() {
+        account.activate();
+        assertThatThrownBy(account::close)
+                .isInstanceOf(BusinessException.class)
+                .hasMessageContaining("Cannot close account in state: ACTIVE");
     }
 }

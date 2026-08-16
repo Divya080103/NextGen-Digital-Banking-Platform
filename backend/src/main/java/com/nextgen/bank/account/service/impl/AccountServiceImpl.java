@@ -2,6 +2,8 @@ package com.nextgen.bank.account.service.impl;
 
 import com.nextgen.bank.account.domain.Account;
 import com.nextgen.bank.account.domain.AccountHold;
+import com.nextgen.bank.account.domain.AccountType;
+import com.nextgen.bank.common.enums.AccountStatus;
 import com.nextgen.bank.account.dto.AccountHoldRequestDto;
 import com.nextgen.bank.account.dto.AccountHoldResponseDto;
 import com.nextgen.bank.account.dto.AccountResponseDto;
@@ -79,6 +81,58 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account not found with ID: " + accountId));
         return AccountResponseDto.fromEntity(account);
+    }
+
+    private static final BigDecimal CURRENT_ACCOUNT_OVERDRAFT_LIMIT = new BigDecimal("-50000.00");
+
+    @Override
+    public AccountResponseDto debit(UUID accountId, BigDecimal amount) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new BusinessException("Debit amount must be greater than zero", HttpStatus.BAD_REQUEST, "INVALID_AMOUNT");
+        }
+        Account account = findAccountOrThrow(accountId);
+
+        // BR-ACC-004: a frozen (or otherwise non-active) account rejects outgoing debits.
+        if (account.getStatus() != AccountStatus.ACTIVE) {
+            throw new BusinessException(
+                    "Account is not active for debit. Current status: " + account.getStatus(),
+                    HttpStatus.UNPROCESSABLE_ENTITY,
+                    "ACCOUNT_NOT_ACTIVE"
+            );
+        }
+
+        BigDecimal newAvailable = account.getAvailableBalance().subtract(amount);
+        BigDecimal floor = account.getAccountType() == AccountType.CURRENT
+                ? CURRENT_ACCOUNT_OVERDRAFT_LIMIT   // BR-ACC-003: sanctioned overdraft
+                : BigDecimal.ZERO;                  // BR-ACC-002: savings never negative
+        if (newAvailable.compareTo(floor) < 0) {
+            throw new BusinessException("Insufficient funds", HttpStatus.BAD_REQUEST, "INSUFFICIENT_FUNDS");
+        }
+
+        account.setBalance(account.getBalance().subtract(amount));
+        account.setAvailableBalance(newAvailable);
+        return AccountResponseDto.fromEntity(accountRepository.save(account));
+    }
+
+    @Override
+    public AccountResponseDto credit(UUID accountId, BigDecimal amount) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new BusinessException("Credit amount must be greater than zero", HttpStatus.BAD_REQUEST, "INVALID_AMOUNT");
+        }
+        Account account = findAccountOrThrow(accountId);
+
+        // BR-ACC-004: incoming credits are permitted while ACTIVE or FROZEN, but not on terminal states.
+        if (account.getStatus() != AccountStatus.ACTIVE && account.getStatus() != AccountStatus.FROZEN) {
+            throw new BusinessException(
+                    "Account cannot accept credit in status: " + account.getStatus(),
+                    HttpStatus.UNPROCESSABLE_ENTITY,
+                    "ACCOUNT_NOT_CREDITABLE"
+            );
+        }
+
+        account.setBalance(account.getBalance().add(amount));
+        account.setAvailableBalance(account.getAvailableBalance().add(amount));
+        return AccountResponseDto.fromEntity(accountRepository.save(account));
     }
 
     @Override

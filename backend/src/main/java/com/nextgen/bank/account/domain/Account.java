@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Currency;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -180,11 +179,11 @@ public class Account {
 
     // Value Object helper methods
     public Money getBalanceAsMoney() {
-        return new Money(balance, Currency.getInstance(currency));
+        return new Money(balance, currency);
     }
 
     public Money getAvailableBalanceAsMoney() {
-        return new Money(availableBalance, Currency.getInstance(currency));
+        return new Money(availableBalance, currency);
     }
 
     // Getters and Setters
